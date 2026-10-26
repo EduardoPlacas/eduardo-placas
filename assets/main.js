@@ -36,33 +36,41 @@ const waUrl = (msg) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)
 function setWa(a) { a.href = waUrl(a.dataset.msg); a.target = "_blank"; a.rel = "noopener"; }
 document.querySelectorAll(".wa-link").forEach(setWa);
 
-/* galeria com abas e ampliação */
-const GAL = {
-  premium: [[1,2,3,4,5,6,7,8,9], "Placa Premium 40x50"],
-  modelos: [[1,2,3,4,5,7,8,9,10,11], "Placa modelo"],
-  projetos: [[30,29,25,27,26,2,4,19], "Projeto realizado"],
-};
-function showGallery(g) {
-  const [n, nome] = GAL[g], box = $("#gallery");
-  const tam = (i) => g === "premium" ? "40x50" : g === "modelos" ? (i === 1 ? "10x30" : i === 2 ? "10x35 com foto 6x8" : "20x30 e 30x40") : "";
+/* galeria: um botão por tamanho */
+const GAL = [
+  { id: "premium", rot: "Premium 40x50", g: "premium", n: [1,2,3,4,5,6,7,8,9], tam: "40x50", nome: "Placa Premium 40x50" },
+  { id: "10x30", rot: "10x30", g: "modelos", n: [1], tam: "10x30", nome: "Placa 10x30" },
+  { id: "10x35", rot: "10x35 com foto 6x8", g: "modelos", n: [2], tam: "10x35 com foto 6x8", nome: "Placa 10x35 com foto 6x8" },
+  { id: "20x30", rot: "20x30", g: "modelos", n: [3,4,5,6,7,8,9,10,11], tam: "20x30, com ou sem foto 6x8", nome: "Placa 20x30" },
+  { id: "30x40", rot: "30x40", g: "modelos", n: [3,4,5,6,7,8,9,10,11], tam: "30x40, com ou sem foto 6x8", nome: "Placa 30x40" },
+  { id: "projetos", rot: "Outros projetos", g: "projetos", n: [30,29,25,27,26,2,4,19], tam: "", nome: "Projeto realizado" },
+];
+$("#tabs").innerHTML = GAL.map((t, k) => `<button${k ? "" : ' class="on"'} data-i="${k}" role="tab">${t.rot}</button>`).join("");
+function showGallery(k) {
+  const t = GAL[k], box = $("#gallery");
   box.innerHTML = "";
-  n.forEach((i, k) => {
-    const src = `images/${g}-${String(i).padStart(2, "0")}.jpg`;
+  t.n.forEach((i, idx) => {
+    const src = `images/${t.g}-${String(i).padStart(2, "0")}.jpg`;
     const b = document.createElement("button");
-    b.style.animationDelay = k * 40 + "ms"; if (tam(i)) b.dataset.tam = tam(i);
-    b.innerHTML = `<img src="${src}" alt="${nome} ${i}" loading="lazy">`;
-    b.onclick = () => { $("#lbImg").src = src; $("#lbImg").alt = `${nome} ${i}`; $("#lbBtn").dataset.msg = `Olá! Gostaria de um orçamento semelhante ao modelo ${nome} nº ${i} (${g}-${i})${tam(i) ? ", tamanho " + tam(i) : ""}.`; setWa($("#lbBtn")); $("#lb").hidden = false; };
+    b.style.animationDelay = idx * 40 + "ms";
+    if (t.tam) b.dataset.tam = t.tam;
+    b.innerHTML = `<img src="${src}" alt="${t.nome} modelo ${idx + 1}" loading="lazy">`;
+    b.onclick = () => {
+      $("#lbImg").src = src; $("#lbImg").alt = `${t.nome} modelo ${idx + 1}`;
+      $("#lbBtn").dataset.msg = `Olá! Gostaria de um orçamento semelhante ao modelo ${t.nome} nº ${idx + 1}${t.tam ? ", tamanho " + t.tam : ""}.`;
+      setWa($("#lbBtn")); $("#lb").hidden = false;
+    };
     box.appendChild(b);
   });
 }
 $("#tabs").addEventListener("click", (e) => {
   const t = e.target.closest("button"); if (!t) return;
   document.querySelectorAll("#tabs button").forEach((x) => x.classList.toggle("on", x === t));
-  showGallery(t.dataset.g);
+  showGallery(+t.dataset.i);
 });
 $("#lb").addEventListener("click", (e) => { if (e.target.id === "lb" || e.target.classList.contains("lb-x")) $("#lb").hidden = true; });
 addEventListener("keydown", (e) => { if (e.key === "Escape") $("#lb").hidden = true; });
-showGallery("premium");
+showGallery(0);
 
 $("#ano").textContent = new Date().getFullYear();
 
