@@ -39,18 +39,19 @@ document.querySelectorAll(".wa-link").forEach(setWa);
 /* galeria com abas e ampliação */
 const GAL = {
   premium: [[1,2,3,4,5,6,7,8,9], "Placa Premium 40x50"],
-  modelos: [[4,5,7,8,9,10,11,3], "Placa modelo"],
+  modelos: [[1,2,3,4,5,7,8,9,10,11], "Placa modelo"],
   projetos: [[30,29,25,27,26,2,4,19], "Projeto realizado"],
 };
 function showGallery(g) {
   const [n, nome] = GAL[g], box = $("#gallery");
+  const tam = (i) => g === "premium" ? "40x50" : g === "modelos" ? (i === 1 ? "10x30" : i === 2 ? "10x35 com foto 6x8" : "20x30 e 30x40") : "";
   box.innerHTML = "";
   n.forEach((i, k) => {
     const src = `images/${g}-${String(i).padStart(2, "0")}.jpg`;
     const b = document.createElement("button");
-    b.style.animationDelay = k * 40 + "ms";
+    b.style.animationDelay = k * 40 + "ms"; if (tam(i)) b.dataset.tam = tam(i);
     b.innerHTML = `<img src="${src}" alt="${nome} ${i}" loading="lazy">`;
-    b.onclick = () => { $("#lbImg").src = src; $("#lbImg").alt = `${nome} ${i}`; $("#lbBtn").dataset.msg = `Olá! Gostaria de um orçamento semelhante ao modelo ${nome} nº ${i} (${g}-${i}).`; setWa($("#lbBtn")); $("#lb").hidden = false; };
+    b.onclick = () => { $("#lbImg").src = src; $("#lbImg").alt = `${nome} ${i}`; $("#lbBtn").dataset.msg = `Olá! Gostaria de um orçamento semelhante ao modelo ${nome} nº ${i} (${g}-${i})${tam(i) ? ", tamanho " + tam(i) : ""}.`; setWa($("#lbBtn")); $("#lb").hidden = false; };
     box.appendChild(b);
   });
 }

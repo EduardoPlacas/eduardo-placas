@@ -226,3 +226,7 @@ footer .logo{height:46px}
 .hero-plaque:hover::after{transform:translateX(130%)}
 .hero-plaque img{position:relative;width:100%;height:auto;filter:drop-shadow(0 1px 0 rgba(255,255,255,.75)) drop-shadow(0 -.5px 0 rgba(0,0,0,.25))}
 .hero-plaque small{position:relative;display:block;margin-top:6px;font:600 11px Cinzel,serif;letter-spacing:.34em;text-transform:uppercase;color:#4a4a52;text-shadow:0 1px 0 rgba(255,255,255,.7)}
+
+/* etiqueta de tamanho na galeria */
+.gallery button{position:relative}
+.gallery button[data-tam]::after{content:attr(data-tam);position:absolute;left:10px;bottom:10px;padding:4px 10px;border-radius:999px;font:600 12px Inter,sans-serif;background:rgba(15,42,29,.88);color:#e7d3ac}
