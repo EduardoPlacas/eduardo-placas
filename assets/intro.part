@@ -1,0 +1,41 @@
+/* ================= ENTRADA ================= */
+#intro{position:fixed;inset:0;z-index:100;overflow:hidden;background:#0a2a63;transition:opacity 1.2s ease}
+#intro.done{opacity:0;pointer-events:none}
+#world{position:absolute;left:0;top:0;width:100%;height:160vh;transform-origin:0 0}
+.sky{position:absolute;left:0;top:0;width:100%;height:100vh;background:linear-gradient(180deg,#06255c 0%,#1456b8 38%,#4f95e0 70%,#bfe0ff 100%)}
+.sun{position:absolute;right:12%;bottom:6%;width:34vmin;height:34vmin;border-radius:50%;background:radial-gradient(circle,#fff 0%,rgba(255,244,200,.9) 18%,rgba(255,225,150,.35) 45%,transparent 70%)}
+.ground{position:absolute;left:0;top:100vh;width:100%;height:60vh;overflow:visible}
+.meadow{position:absolute;inset:0;background:
+  repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 3vh,transparent 3vh 6vh),
+  linear-gradient(180deg,#5f9a45 0%,#4d8a3a 30%,#3b762d 100%)}
+.meadow::before{content:"";position:absolute;left:0;right:0;top:-1px;height:8vh;background:linear-gradient(180deg,rgba(191,224,255,.55),transparent)}
+.trees{position:absolute;left:0;right:0;top:-5vh;height:8vh;pointer-events:none}
+.tree{position:absolute;bottom:0;transform:translateX(-50%)}
+.tree .crown{width:100%;aspect-ratio:1.1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#4f8a3c,#1f4a22 75%);filter:blur(.6px)}
+.tree .trunk{position:absolute;left:46%;width:8%;bottom:-12%;height:30%;background:#3b2a1d}
+.bg{position:absolute;inset:0;transition:filter .1s}
+.hs{position:absolute;transform:translate(-50%,-100%);border-radius:50% 50% 3% 3%/28% 28% 3% 3%;background:linear-gradient(160deg,#9a9aa0,#55555b);box-shadow:0 .4vh .6vh rgba(0,0,0,.3)}
+.hs.d{background:linear-gradient(160deg,#3d3d42,#141416)}
+.hs.w{background:linear-gradient(160deg,#f0f0f2,#b4b4ba)}
+.fl{position:absolute;border-radius:50%;transform:translate(-50%,-50%)}
+.flowers-front{position:absolute;inset:0;pointer-events:none}
+.hero-stone{position:absolute;left:50%;top:76%;width:15vh;height:24vh;transform:translate(-50%,-100%)}
+.hero-stone .face{border-radius:50% 50% 3% 3%/22% 22% 3% 3%;overflow:hidden;background:radial-gradient(120% 60% at 30% 0%,rgba(255,255,255,.28),transparent 55%),linear-gradient(160deg,#55555b,#1b1b1e 75%);box-shadow:0 1vh 2.4vh rgba(0,0,0,.45),inset 0 2px 0 rgba(255,255,255,.2);display:grid;place-items:center}
+.hero-stone .engrave{opacity:0;transform:scale(.92)}
+.hero-stone .engrave .mono{width:34%}
+.hero-stone .engrave b{font-size:1.65vh;white-space:nowrap}
+.hero-stone .engrave small{font-size:.8vh;letter-spacing:.14em}
+.clouds-wrap{position:absolute;inset:0;pointer-events:none;will-change:transform,opacity}
+.clouds-inner{position:absolute;inset:-30%;will-change:transform}
+.clouds-f{position:absolute;inset:0;filter:url(#wisp)}
+.cl{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,.55) 55%,transparent);filter:blur(14px)}
+.rays{position:absolute;inset:0;pointer-events:none;background:conic-gradient(from 200deg at 88% 70%,transparent 0 10deg,rgba(255,244,200,.14) 14deg,transparent 22deg,rgba(255,244,200,.1) 30deg,transparent 40deg,rgba(255,244,200,.12) 48deg,transparent 60deg);mix-blend-mode:screen;opacity:0}
+.pollen{position:absolute;inset:0;pointer-events:none}
+.pollen i{position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(255,248,210,.9);box-shadow:0 0 10px rgba(255,248,210,.9);opacity:0}
+#skip{position:absolute;right:20px;bottom:20px;z-index:5;background:rgba(0,0,0,.35);color:#fff;border:1px solid rgba(255,255,255,.3);padding:9px 16px;border-radius:999px;font:500 13px Inter,sans-serif;cursor:pointer;backdrop-filter:blur(10px)}
+#skip:hover{background:rgba(0,0,0,.55)}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01s!important}
+  html{scroll-behavior:auto}
+}
